@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\Team\TeamCreatedEvent;
 use App\Http\Requests\Team\StoreTeamRequest;
 use App\Models\Team;
 use App\Models\User;
@@ -10,19 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class TeamService
 {
-    public function createUsers(StoreTeamRequest $request, Model $team)
-    {
-        $users = $request->input('users');
-        foreach ($users as $user){
-            User::query()->create([
-                'name' => $user['name'],
-                'command_id' => $team->id,
-                'description' => $request->input('description'),
-            ]);
-        }
-    }
-
-    public function createTeam(array $data)
+    public function createTeam(array $data): Model
     {
         $team = Team::query()->create([
            'name' => $data['name'],
@@ -30,8 +19,8 @@ class TeamService
             'password' => Hash::make($data['password'])
         ]);
 
+        event(new TeamCreatedEvent($team, $data['users']));
 
-
-
+        return $team;
     }
 }

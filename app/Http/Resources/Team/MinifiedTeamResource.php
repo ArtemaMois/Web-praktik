@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Http\Resources\Team;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
+
+class MinifiedTeamResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(Request $request): array
+    {
+        return [
+            'name' => $this->name,
+            //TODO: add image url string
+            'email' => $this->email,
+            'created_at' => Carbon::make($this->created_at)->format("s:i:H d-m-Y"),
+        ];
+    }
+}

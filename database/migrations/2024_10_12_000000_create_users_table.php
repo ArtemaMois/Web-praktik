@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId("team_id")->constrained("teams")
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('full_name');
+            $table->string('name');
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
