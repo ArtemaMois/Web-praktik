@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Team;
 
-use App\Facade\TeamFacade;
+use App\Events\Team\TeamCreatedEvent;
+use App\Facade\Team\TeamFacade;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Team\StoreTeamRequest;
 use App\Http\Requests\Team\UpdateTeamRequest;
@@ -13,27 +14,31 @@ use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        dd($request);
+        return response()->json(['status' => 'success',
+            'data' => MinifiedTeamResource::collection(Team::all())
+        ]);
     }
 
     public function store(StoreTeamRequest $request)
     {
         $team = TeamFacade::createTeam($request->validated());
+        event(new TeamCreatedEvent($team, $request->input(['users'])));
         return response()->json(['status' => 'success',
-            'data' => [
-                'team' => MinifiedTeamResource::make($team),
-                'users' => MinifiedUserResource::collection($team->users)
-            ]]);
+            'data' =>  MinifiedTeamResource::make($team),
+            ]);
     }
 
     public function update(UpdateTeamRequest $request, Team $team)
     {
-
+        $team->update($request->validated());
+        return response()->json(['status' => 'success', 'data' => MinifiedTeamResource::make($team)]);
     }
 
     public function delete(Team $team)
     {
+        $team->delete();
+        return response()->json(['status' => 'success']);
     }
 }

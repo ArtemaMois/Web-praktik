@@ -27,6 +27,5 @@ class UpdateTeamRequest extends FormRequest
         return [
             'email.unique' => 'Команда с таким email уже существует',
         ];
-
     }
 }

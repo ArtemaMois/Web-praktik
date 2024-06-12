@@ -2,23 +2,18 @@
 
 namespace App\Providers;
 
-use app\Facade\TeamFacade;
-use App\Services\TeamService;
+use App\Services\Mail\MailService;
+use App\Services\Team\TeamService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         $this->app->bind('team', TeamService::class);
+        $this->app->bind('mail', MailService::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         //

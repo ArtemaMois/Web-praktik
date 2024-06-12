@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Team;
 
 use App\Events\Team\TeamCreatedEvent;
-use App\Http\Requests\Team\StoreTeamRequest;
 use App\Models\Team;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,8 +16,6 @@ class TeamService
            'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);
-
-        event(new TeamCreatedEvent($team, $data['users']));
 
         return $team;
     }

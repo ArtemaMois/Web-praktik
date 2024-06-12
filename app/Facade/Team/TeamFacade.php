@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Facade;
+namespace App\Facade\Team;
 
-use App\Services\TeamService;
 use Illuminate\Support\Facades\Facade;
 
 class TeamFacade extends Facade

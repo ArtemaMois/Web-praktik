@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Team;
 
+use App\Http\Resources\User\MinifiedUserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
@@ -20,6 +21,7 @@ class MinifiedTeamResource extends JsonResource
             //TODO: add image url string
             'email' => $this->email,
             'created_at' => Carbon::make($this->created_at)->format("s:i:H d-m-Y"),
+            'users' => MinifiedUserResource::collection($this->users),
         ];
     }
 }
