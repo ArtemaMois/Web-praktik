@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Team;
+namespace App\Http\Controllers\Api\v1\Team;
 
 use App\Events\Team\TeamCreatedEvent;
 use App\Facade\Team\TeamFacade;

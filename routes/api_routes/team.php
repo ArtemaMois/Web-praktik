@@ -2,7 +2,7 @@
 
 namespace routes\api_routes;
 
-use App\Http\Controllers\Team\TeamController;
+use App\Http\Controllers\Api\v1\Team\TeamController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(TeamController::class)

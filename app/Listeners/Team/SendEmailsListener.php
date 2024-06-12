@@ -3,7 +3,7 @@
 namespace App\Listeners\Team;
 
 use App\Events\Team\TeamCreatedEvent;
-use App\Http\Controllers\Mail\MailController;
+use App\Http\Controllers\Api\v1\Mail\MailController;
 use App\Models\EmailVerificationCode;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;

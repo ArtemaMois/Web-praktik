@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Mail;
+namespace App\Http\Controllers\Api\v1\Mail;
 
 use App\Facade\Mail\MailFacade;
 use App\Http\Controllers\Controller;
