@@ -8,4 +8,5 @@ Route::controller(UserController::class)
     ->prefix('/users')
     ->group(
     function(){
+
 });
