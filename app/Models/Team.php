@@ -17,7 +17,8 @@ class Team extends Model
         'name',
         'image_url',
         'email',
-        'password'
+        'password',
+        'email_verified_at'
     ];
 
     public function users(): HasMany

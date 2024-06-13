@@ -22,12 +22,11 @@ class MailService
 
     public function getVerificationMailBody(Team $team): string
     {
-        $created_at = Carbon::now();
         $code = EmailVerificationCode::query()->create([
             'team_id' => $team->id,
             'code' => rand(100000, 999999),
-            'created_at' => $created_at,
-            'expired_at' => $created_at->addHour()
+            'created_at' => Carbon::now(),
+            'expired_at' => Carbon::now()->addHour()
         ]);
         return $this->getMailBody('email.verification',
             [

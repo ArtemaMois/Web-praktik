@@ -17,6 +17,7 @@ class MinifiedTeamResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             //TODO: add image url string
             'email' => $this->email,
