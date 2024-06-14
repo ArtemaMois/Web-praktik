@@ -13,5 +13,4 @@ Route::controller(TeamController::class)
         Route::patch('/{team}', 'update')->name('team.update');
         Route::delete('/{team}', 'delete')->name('team.delete');
         Route::post('/email-verification/{team}', 'VerifyEmail')->name('team.verify.email');
-        Route::get('/codes', 'deleteCodes');
     });

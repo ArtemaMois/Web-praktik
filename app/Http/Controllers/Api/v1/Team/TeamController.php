@@ -54,4 +54,14 @@ class TeamController extends Controller
             response()->json(['status' => 'failed',
                 'message' => "Incorrect verification code"]);
     }
+
+    public function deleteCodes()
+    {
+        EmailVerificationCode::query()->
+        where('expired_at', '<', Carbon::now())->
+        get()->map(function($code) {
+           return $code->delete() ? true : false;
+        });
+        return response()->json(['data' => EmailVerificationCode::all()]);
+    }
 }
