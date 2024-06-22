@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\UnverifiedEmailMiddleware;
+use App\Http\Middleware\VerifedEmailMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'unverified.email' => UnverifiedEmailMiddleware::class,
+        'verified.email' => VerifedEmailMiddleware::class,
     ];
 }

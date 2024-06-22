@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\v1\Team;
 
 use App\Events\Team\TeamCreatedEvent;
 use App\Facade\Team\TeamFacade;
+use App\Http\Controllers\Api\v1\Mail\MailController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Mail\ResendMailRequest;
 use App\Http\Requests\Mail\VerifyEmailRequest;
 use App\Http\Requests\Team\StoreTeamRequest;
 use App\Http\Requests\Team\UpdateTeamRequest;
@@ -21,7 +23,6 @@ class TeamController extends Controller
 {
     public function index()
     {
-//        dd(auth()->user());
         return response()->json(['status' => 'success',
             'data' => MinifiedTeamResource::collection(Team::all())
         ]);
@@ -33,9 +34,9 @@ class TeamController extends Controller
             'status' => 'success',
             'data' => new MinifiedTeamResource($team)]);
     }
-    public function store(Request $request)
+
+    public function store(StoreTeamRequest $request)
     {
-//        dd(auth()->check());
         $team = TeamFacade::createTeam($request->validated());
         event(new TeamCreatedEvent($team, $request->input(['users'])));
         return response()->json(['status' => 'success',
@@ -57,11 +58,22 @@ class TeamController extends Controller
 
     public function verifyEmail(VerifyEmailRequest $request, Team $team)
     {
+        $team = Team::query()->where('email', $request->email)->first();
         return TeamFacade::verifyTeamEmail($team, $request->code) ?
             response()->json(['status' => 'success']) :
             response()->json(['status' => 'failed',
                 'message' => "Incorrect verification code"]);
     }
 
+    public function resendVerifyEmail(ResendMailRequest $request)
+    {
+        $team = Team::query()->where('email', $request->email)->first();
+        $team->emailVerificationCodes()->delete();
+        MailController::sendVerificationMail($team);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Письмо отправлено на почту'
+        ]);
+    }
 
 }
