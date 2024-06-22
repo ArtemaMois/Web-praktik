@@ -21,13 +21,21 @@ class TeamController extends Controller
 {
     public function index()
     {
+//        dd(auth()->user());
         return response()->json(['status' => 'success',
             'data' => MinifiedTeamResource::collection(Team::all())
         ]);
     }
 
-    public function store(StoreTeamRequest $request)
+    public function show(Team $team)
     {
+        return response()->json([
+            'status' => 'success',
+            'data' => new MinifiedTeamResource($team)]);
+    }
+    public function store(Request $request)
+    {
+//        dd(auth()->check());
         $team = TeamFacade::createTeam($request->validated());
         event(new TeamCreatedEvent($team, $request->input(['users'])));
         return response()->json(['status' => 'success',

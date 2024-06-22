@@ -10,7 +10,7 @@ class StoreTeamRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:100'],
+            'login' => ['required', 'string', 'unique:teams,login', 'max:100'],
             'email' => ['required', 'email', 'unique:teams,email'],
             'image' => ['nullable', 'mimes:jpeg,jpg,png', 'max:2048'],
             'password' => ['required', 'string', 'min:6'],
@@ -24,6 +24,7 @@ class StoreTeamRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'login.unique' => "Команда с таким названием уже существует",
             'email.unique' => 'Команда с таким email уже существует',
         ];
 

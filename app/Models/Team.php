@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
-class Team extends Model
+class Team extends Authenticatable implements AuthenticatableContract
 {
     use HasFactory;
 
     protected $table = 'teams';
 
     protected $fillable = [
-        'name',
+        'login',
         'image_url',
         'email',
         'password',

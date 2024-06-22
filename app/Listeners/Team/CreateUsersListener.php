@@ -26,7 +26,7 @@ class CreateUsersListener
             User::query()->create([
                 'team_id' => $event->team->id,
                 'name' => $user['name'],
-                'description' => $user['description']
+                'description' => $user['description'],
             ]);
         }
     }

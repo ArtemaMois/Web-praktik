@@ -31,4 +31,5 @@ class MailController extends Controller
     {
         return MailFacade::sendMail($email, $subject, $body);
     }
+
 }

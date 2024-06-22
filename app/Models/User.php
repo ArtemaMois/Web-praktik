@@ -15,10 +15,12 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
+        'login',
         'team_id',
         'name',
         'image',
         'description',
+        'password'
     ];
 
     public function team(): BelongsTo

@@ -35,6 +35,11 @@ class MailService
             ]);
     }
 
+    public function getCredentialsMailBody(Team $team)
+    {
+
+    }
+
     public function sendMail(string $email, string $subject, string $body): bool
     {
         $mail = new PHPMailer(true);

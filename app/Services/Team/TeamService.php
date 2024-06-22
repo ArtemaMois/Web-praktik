@@ -14,7 +14,7 @@ class TeamService
     public function createTeam(array $data): Model
     {
         $team = Team::query()->create([
-           'name' => $data['name'],
+           'login' => $data['login'],
            'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);
