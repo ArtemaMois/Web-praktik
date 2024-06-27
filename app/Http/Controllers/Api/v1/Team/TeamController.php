@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1\Team;
 
+use App\Events\Team\DeletedTeamEvent;
 use App\Events\Team\TeamCreatedEvent;
 use App\Facade\Team\TeamFacade;
 use App\Http\Controllers\Api\v1\Mail\MailController;
@@ -17,6 +18,8 @@ use App\Models\Team;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
+
 use function PHPUnit\Framework\isNull;
 
 class TeamController extends Controller
@@ -37,8 +40,9 @@ class TeamController extends Controller
 
     public function store(StoreTeamRequest $request)
     {
-        $team = TeamFacade::createTeam($request->validated());
-        event(new TeamCreatedEvent($team, $request->input(['users'])));
+        $imagePath = $request->file('image')->store('/teams');
+        $team = TeamFacade::createTeam($request->validated(), $imagePath);
+        event(new TeamCreatedEvent($team, $request->users));
         return response()->json(['status' => 'success',
             'data' => MinifiedTeamResource::make($team),
         ]);
@@ -46,19 +50,30 @@ class TeamController extends Controller
 
     public function update(UpdateTeamRequest $request, Team $team)
     {
-        $team->update($request->validated());
+        $team->update([
+            'login' => $request->login
+        ]);
+        if($request->hasFile('image'))
+        {
+            Storage::delete($team->image);
+            $team->update(['image' => $request->file('image')->store('/teams')]);
+        }
+
         return response()->json(['status' => 'success', 'data' => MinifiedTeamResource::make($team)]);
     }
 
     public function delete(Team $team)
     {
+        event(new DeletedTeamEvent($team));
         $team->delete();
+
         return response()->json(['status' => 'success']);
     }
 
     public function verifyEmail(VerifyEmailRequest $request, Team $team)
     {
         $team = Team::query()->where('email', $request->email)->first();
+
         return TeamFacade::verifyTeamEmail($team, $request->code) ?
             response()->json(['status' => 'success']) :
             response()->json(['status' => 'failed',

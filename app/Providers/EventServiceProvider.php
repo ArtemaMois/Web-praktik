@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\Team\DeletedTeamEvent;
 use App\Events\Team\TeamCreatedEvent;
+use App\Listeners\DeleteTeamImagesListener;
 use App\Listeners\Team\CreateUsersListener;
 use App\Listeners\Team\SendEmailsListener;
 use Illuminate\Auth\Events\Registered;
@@ -24,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         TeamCreatedEvent::class => [
             CreateUsersListener::class,
             SendEmailsListener::class,
+        ],
+        DeletedTeamEvent::class => [
+            DeleteTeamImagesListener::class,
         ]
     ];
 

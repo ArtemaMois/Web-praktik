@@ -17,7 +17,7 @@ class Team extends Authenticatable implements AuthenticatableContract
 
     protected $fillable = [
         'login',
-        'image_url',
+        'image',
         'email',
         'password',
         'email_verified_at'

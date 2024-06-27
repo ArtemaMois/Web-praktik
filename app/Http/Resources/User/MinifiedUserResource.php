@@ -12,7 +12,7 @@ class MinifiedUserResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            //TODO: add image url string
+            'image' => asset($this->image),
             'description' => $this->description,
             'created_at' => Carbon::make($this->created_at)->format("s:i:H d-m-Y"),
         ];

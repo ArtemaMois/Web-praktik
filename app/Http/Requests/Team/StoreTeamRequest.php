@@ -12,11 +12,11 @@ class StoreTeamRequest extends FormRequest
         return [
             'login' => ['required', 'string', 'unique:teams,login', 'max:100'],
             'email' => ['required', 'email', 'unique:teams,email'],
-            'image' => ['nullable', 'mimes:jpeg,jpg,png', 'max:2048'],
+            'image' => ['required', 'mimes:jpeg,jpg,png', 'max:2048'],
             'password' => ['required', 'string', 'min:6'],
             'users' => ['required', 'array', 'min:1'],
-            'users.*.name' => ['required', 'string'],
-            'users.*.image' => ['nullable', 'mimes:jpeg,jpg,png', 'max:2048'],
+            'users.*.name' => ['nullable', 'string'],
+            'users.*.image' => ['required', 'mimes:jpeg,jpg,png', 'max:2048'],
             'users.*.description' => ['nullable', 'string', 'max:255']
         ];
     }

@@ -19,7 +19,7 @@ class MinifiedTeamResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->login,
-            //TODO: add image url string
+            'image' => asset($this->image),
             'email' => $this->email,
             'created_at' => Carbon::make($this->created_at)->format("s:i:H d-m-Y"),
             'users' => MinifiedUserResource::collection($this->users),

@@ -11,11 +11,12 @@ use Illuminate\Support\Facades\Hash;
 
 class TeamService
 {
-    public function createTeam(array $data): Model
+    public function createTeam(array $data, string $imagePath): Model
     {
         $team = Team::query()->create([
            'login' => $data['login'],
            'email' => $data['email'],
+           'image' => $imagePath,
             'password' => Hash::make($data['password'])
         ]);
 
