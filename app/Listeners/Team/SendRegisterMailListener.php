@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendEmailsListener
+class SendRegisterMailListener
 {
 
     public function __construct()

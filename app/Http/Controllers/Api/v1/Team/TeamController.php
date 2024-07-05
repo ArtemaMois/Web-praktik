@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\v1\Team;
 
 use App\Events\Team\DeletedTeamEvent;
 use App\Events\Team\TeamCreatedEvent;
-use App\Facade\Team\TeamFacade;
+use App\Facades\Team\TeamFacade;
 use App\Http\Controllers\Api\v1\Mail\MailController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Mail\ResendMailRequest;

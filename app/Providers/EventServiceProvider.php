@@ -4,9 +4,12 @@ namespace App\Providers;
 
 use App\Events\Team\DeletedTeamEvent;
 use App\Events\Team\TeamCreatedEvent;
+use App\Events\Team\TeamEvaluatedEvent;
 use App\Listeners\DeleteTeamImagesListener;
 use App\Listeners\Team\CreateUsersListener;
 use App\Listeners\Team\SendEmailsListener;
+use App\Listeners\Team\SendMailWithGradesListener;
+use App\Listeners\Team\SendRegisterMailListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -25,11 +28,14 @@ class EventServiceProvider extends ServiceProvider
         ],
         TeamCreatedEvent::class => [
             CreateUsersListener::class,
-            SendEmailsListener::class,
+            SendRegisterMailListener::class,
         ],
         DeletedTeamEvent::class => [
             DeleteTeamImagesListener::class,
-        ]
+        ],
+        TeamEvaluatedEvent::class => [
+            SendMailWithGradesListener::class,
+        ],
     ];
 
     /**

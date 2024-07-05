@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Facade\Team;
+namespace App\Facades\Team;
 
 use Illuminate\Support\Facades\Facade;
 

@@ -12,7 +12,7 @@ class MinifiedUserResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            'image' => asset($this->image),
+            'image' => $this->image ? asset($this->image) : null,
             'description' => $this->description,
             'created_at' => Carbon::make($this->created_at)->format("s:i:H d-m-Y"),
         ];

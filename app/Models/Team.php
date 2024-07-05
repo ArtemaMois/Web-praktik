@@ -33,4 +33,9 @@ class Team extends Authenticatable implements AuthenticatableContract
         return $this->hasMany(EmailVerificationCode::class);
     }
 
+    public function grades(): HasMany
+    {
+        return $this->hasMany(Grade::class);
+    }
+
 }

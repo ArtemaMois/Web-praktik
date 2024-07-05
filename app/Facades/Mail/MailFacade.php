@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Facade\Mail;
+namespace App\Facades\Mail;
 
 use App\Services\Mail\MailService;
 use Illuminate\Support\Facades\Facade;

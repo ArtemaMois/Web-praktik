@@ -3,6 +3,7 @@
 namespace App\Services\Mail;
 
 use App\Models\EmailVerificationCode;
+use App\Models\Grade;
 use App\Models\Team;
 use Carbon\Carbon;
 use Illuminate\Mail\Mailables\Content;
@@ -35,9 +36,13 @@ class MailService
             ]);
     }
 
-    public function getCredentialsMailBody(Team $team)
+    public function getEvaluationMailBody(Grade $grade)
     {
-
+        return $this->getMailBody('email.grades',
+        [
+            'grade' => $grade,
+            'evaluator' => $grade->evaluator
+        ]);
     }
 
     public function sendMail(string $email, string $subject, string $body): bool
